@@ -1,0 +1,357 @@
+@import url('https://googleapis.com');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: #121214;
+    color: #e1e1e6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.slides-nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: #19191c;
+    border-bottom: 1px solid #29292e;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-btn {
+    background: #29292e;
+    color: #a8a8b3;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-btn:hover {
+    background: #38383d;
+    color: #ffffff;
+}
+
+.nav-btn.active {
+    background: #04d361;
+    color: #0d0d0f;
+    box-shadow: 0 0 12px rgba(4, 211, 97, 0.3);
+}
+
+.presentation-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.slide {
+    display: none;
+    width: 100%;
+    max-width: 960px;
+    background: #202024;
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid #29292e;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.slide.active {
+    display: block;
+    animation: slideRender 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideRender {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-title {
+    font-size: 2.5rem;
+    color: #ffffff;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.sub-title {
+    font-size: 1.5rem;
+    color: #a8a8b3;
+    font-weight: 500;
+    margin-top: 8px;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    color: #04d361;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.decorator-line {
+    height: 4px;
+    width: 80px;
+    background: #04d361;
+    margin: 24px 0;
+    border-radius: 2px;
+}
+
+.slide-description {
+    font-size: 1.2rem;
+    color: #c4c4cc;
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+.slide-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #c4c4cc;
+    margin-bottom: 16px;
+}
+
+.slide-text strong {
+    color: #ffffff;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.styled-list {
+    list-style: none;
+}
+
+.list-item {
+    font-size: 1.15rem;
+    margin-bottom: 16px;
+    padding-left: 24px;
+    position: relative;
+    line-height: 1.6;
+    color: #c4c4cc;
+}
+
+.list-item strong {
+    color: #ffffff;
+}
+
+.list-item::before {
+    content: "■";
+    color: #04d361;
+    font-size: 0.8rem;
+    position: absolute;
+    left: 0;
+    top: 2px;
+}
+
+.image-wrapper {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid #29292e;
+    height: 280px;
+    width: 100%;
+}
+
+.main-portrait {
+    max-width: 400px;
+    margin: 0 auto;
+    height: 320px;
+}
+
+.slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.image-wrapper:hover .slide-img {
+    transform: scale(1.03);
+}
+
+.fact-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(18, 18, 20, 0.75);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-wrapper:hover .fact-overlay {
+    opacity: 1;
+}
+
+.image-wrapper.fact-opened .fact-overlay {
+    opacity: 1;
+    background: rgba(4, 211, 97, 0.95);
+    color: #0d0d0f;
+    font-weight: 600;
+}
+
+.memory-stages {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.stage-card {
+    background: #29292e;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-weight: 500;
+    font-size: 1.05rem;
+    border: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.stage-card:hover {
+    border-color: #04d361;
+}
+
+.stage-card span {
+    background: #04d361;
+    color: #0d0d0f;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.thank-you-msg {
+    font-size: 2rem;
+    color: #04d361;
+    font-weight: 700;
+    margin-top: 20px;
+    text-shadow: 0 0 15px rgba(4, 211, 97, 0.2);
+}
+
+.cheat-sheet-panel {
+    background: #19191c;
+    border-top: 1px solid #29292e;
+    padding: 20px;
+    text-align: center;
+    position: sticky;
+    bottom: 0;
+    z-index: 90;
+}
+
+.cheat-title {
+    font-size: 0.85rem;
+    color: #7c7c8a;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cheat-text {
+    font-size: 1.05rem;
+    color: #e1e1e6;
+    max-width: 850px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .slides-nav {
+        padding: 8px;
+        gap: 4px;
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+    
+    .nav-btn {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
+
+    .slide {
+        padding: 24px 16px;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+    }
+
+    .main-title {
+        font-size: 1.8rem;
+    }
+
+    .sub-title {
+        font-size: 1.2rem;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+    }
+
+    .grid-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .image-wrapper {
+        height: 220px;
+    }
+
+    .main-portrait {
+        height: 260px;
+    }
+
+    .memory-stages {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .stage-card {
+        padding: 16px;
+        font-size: 0.95rem;
+    }
+
+    .cheat-sheet-panel {
+        padding: 16px 12px;
+    }
+
+    .cheat-text {
+        font-size: 0.95rem;
+    }
+  }
